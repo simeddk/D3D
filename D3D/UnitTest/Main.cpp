@@ -2,9 +2,16 @@
 #include "Main.h"
 #include "Systems/Window.h"
 
+#include "VertexLineDemo.h"
+#include "VertexLineColorDemo.h"
+#include "VertexTopologyDemo.h"
+#include "TriangleDemo.h"
+#include "RectDemo.h"
+#include "WorldDemo.h"
+
 void Main::Initialize()
 {
-
+	Push(new WorldDemo());
 }
 
 

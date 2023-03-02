@@ -3,9 +3,62 @@
   <ItemGroup>
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="stdafx.cpp" />
+    <ClCompile Include="VertexLineColorDemo.cpp">
+      <Filter>Vrertex</Filter>
+    </ClCompile>
+    <ClCompile Include="VertexLineDemo.cpp">
+      <Filter>Vrertex</Filter>
+    </ClCompile>
+    <ClCompile Include="VertexTopologyDemo.cpp">
+      <Filter>Vrertex</Filter>
+    </ClCompile>
+    <ClCompile Include="TriangleDemo.cpp">
+      <Filter>Section</Filter>
+    </ClCompile>
+    <ClCompile Include="RectDemo.cpp">
+      <Filter>Section</Filter>
+    </ClCompile>
+    <ClCompile Include="WorldDemo.cpp">
+      <Filter>World</Filter>
+    </ClCompile>
+    <ClCompile Include="GridDemo.cpp">
+      <Filter>Section</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Main.h" />
     <ClInclude Include="stdafx.h" />
+    <ClInclude Include="VertexLineColorDemo.h">
+      <Filter>Vrertex</Filter>
+    </ClInclude>
+    <ClInclude Include="VertexLineDemo.h">
+      <Filter>Vrertex</Filter>
+    </ClInclude>
+    <ClInclude Include="VertexTopologyDemo.h">
+      <Filter>Vrertex</Filter>
+    </ClInclude>
+    <ClInclude Include="TriangleDemo.h">
+      <Filter>Section</Filter>
+    </ClInclude>
+    <ClInclude Include="RectDemo.h">
+      <Filter>Section</Filter>
+    </ClInclude>
+    <ClInclude Include="WorldDemo.h">
+      <Filter>World</Filter>
+    </ClInclude>
+    <ClInclude Include="GridDemo.h">
+      <Filter>Section</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Vrertex">
+      <UniqueIdentifier>{dcbf1656-428f-4d1c-91a0-5341b7891e9b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Section">
+      <UniqueIdentifier>{383cba42-d4d5-4ddf-9713-eec0be0c2214}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="World">
+      <UniqueIdentifier>{6a949059-b36a-453b-9060-2a311b7fe77c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
 </Project>
