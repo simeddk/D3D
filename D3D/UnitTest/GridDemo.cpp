@@ -15,8 +15,8 @@ void GridDemo::Initialize()
 			UINT index = (width + 1) * y + x;
 
 			vertices[index].Posision.x = (float)x;
-			vertices[index].Posision.y = (float)y;
-			vertices[index].Posision.z = 0.f;
+			vertices[index].Posision.y = 0.f;
+			vertices[index].Posision.z = (float)y;
 		}
 	}
 
@@ -64,6 +64,8 @@ void GridDemo::Initialize()
 
 		Check(D3D::GetDevice()->CreateBuffer(&desc, &subResource, &indexBuffer));
 	}
+
+	D3DXMatrixIdentity(&world);
 }
 
 void GridDemo::Destroy()
@@ -85,12 +87,13 @@ void GridDemo::Render()
 	UINT stride = sizeof(Vertex);
 	UINT offset = 0;
 
-	D3D::GetDC()->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_LINELIST);
+	D3D::GetDC()->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 	D3D::GetDC()->IASetVertexBuffers(0, 1, &vertexBuffer, &stride, &offset);
-	
-	//Todo
-	//IASSet IndexBuffer
-	//DrawIndexed
+	D3D::GetDC()->IASetIndexBuffer(indexBuffer, DXGI_FORMAT_R32_UINT, 0);
 
-	shader->Draw(0, 0, 2);
+	static UINT pass = 0;
+	ImGui::InputInt("Pass", (int*)&pass);
+	pass = (UINT)Math::Clamp(pass, 0, 1);
+
+	shader->DrawIndexed(0, pass, indexCount);
 }

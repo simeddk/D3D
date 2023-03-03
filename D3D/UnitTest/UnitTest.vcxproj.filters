@@ -24,6 +24,18 @@
     <ClCompile Include="GridDemo.cpp">
       <Filter>Section</Filter>
     </ClCompile>
+    <ClCompile Include="CubeDemo.cpp">
+      <Filter>Section</Filter>
+    </ClCompile>
+    <ClCompile Include="TextureDemo.cpp">
+      <Filter>Texture</Filter>
+    </ClCompile>
+    <ClCompile Include="SamplerStateDemo.cpp">
+      <Filter>Texture</Filter>
+    </ClCompile>
+    <ClCompile Include="TerrainDemo.cpp">
+      <Filter>Environment</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Main.h" />
@@ -49,6 +61,18 @@
     <ClInclude Include="GridDemo.h">
       <Filter>Section</Filter>
     </ClInclude>
+    <ClInclude Include="CubeDemo.h">
+      <Filter>Section</Filter>
+    </ClInclude>
+    <ClInclude Include="TextureDemo.h">
+      <Filter>Texture</Filter>
+    </ClInclude>
+    <ClInclude Include="SamplerStateDemo.h">
+      <Filter>Texture</Filter>
+    </ClInclude>
+    <ClInclude Include="TerrainDemo.h">
+      <Filter>Environment</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Vrertex">
@@ -59,6 +83,12 @@
     </Filter>
     <Filter Include="World">
       <UniqueIdentifier>{6a949059-b36a-453b-9060-2a311b7fe77c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Texture">
+      <UniqueIdentifier>{adee8c8b-3678-4964-a854-1c001b48ea77}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Environment">
+      <UniqueIdentifier>{12cbb54a-b405-438e-acc6-e5d19ec3aa26}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

@@ -8,10 +8,15 @@
 #include "TriangleDemo.h"
 #include "RectDemo.h"
 #include "WorldDemo.h"
+#include "GridDemo.h"
+#include "CubeDemo.h"
+#include "TextureDemo.h"
+#include "SamplerStateDemo.h"
+#include "TerrainDemo.h"
 
 void Main::Initialize()
 {
-	Push(new WorldDemo());
+	Push(new TerrainDemo());
 }
 
 

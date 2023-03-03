@@ -40,9 +40,14 @@ RasterizerState FillMode_WireFrame
 	FillMode = WireFrame;
 };
 
-float4 PS(VertexOutput input) : SV_Target
+float4 PS_Grid(VertexOutput input) : SV_Target
 {
 	return float4(input.Color, 1);
+}
+
+float4 PS_Cube(VertexOutput input) : SV_Target
+{
+	return float4(0, 1, 0, 1);
 }
 
 technique11 T0
@@ -50,15 +55,20 @@ technique11 T0
 	pass P0
 	{
 		SetVertexShader(CompileShader(vs_5_0, VS()));
-		SetPixelShader(CompileShader(ps_5_0, PS()));
+		SetPixelShader(CompileShader(ps_5_0, PS_Grid()));
 	}
-
 
 	pass P1
 	{
 		SetRasterizerState(FillMode_WireFrame);
 
 		SetVertexShader(CompileShader(vs_5_0, VS()));
-		SetPixelShader(CompileShader(ps_5_0, PS()));
+		SetPixelShader(CompileShader(ps_5_0, PS_Grid()));
+	}
+
+	pass P2
+	{
+		SetVertexShader(CompileShader(vs_5_0, VS()));
+		SetPixelShader(CompileShader(ps_5_0, PS_Cube()));
 	}
 }
