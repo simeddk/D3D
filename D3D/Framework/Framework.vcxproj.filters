@@ -65,6 +65,18 @@
     <ClCompile Include="Environment\Terrain.cpp">
       <Filter>Environment</Filter>
     </ClCompile>
+    <ClCompile Include="Renders\DebugLine.cpp">
+      <Filter>Renders</Filter>
+    </ClCompile>
+    <ClCompile Include="Meshes\Mesh.cpp">
+      <Filter>Mehses</Filter>
+    </ClCompile>
+    <ClCompile Include="Meshes\MeshQuad.cpp">
+      <Filter>Mehses</Filter>
+    </ClCompile>
+    <ClCompile Include="Meshes\MeshPlane.cpp">
+      <Filter>Mehses</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Framework.h" />
@@ -134,6 +146,18 @@
     <ClInclude Include="Environment\Terrain.h">
       <Filter>Environment</Filter>
     </ClInclude>
+    <ClInclude Include="Renders\DebugLine.h">
+      <Filter>Renders</Filter>
+    </ClInclude>
+    <ClInclude Include="Meshes\Mesh.h">
+      <Filter>Mehses</Filter>
+    </ClInclude>
+    <ClInclude Include="Meshes\MeshQuad.h">
+      <Filter>Mehses</Filter>
+    </ClInclude>
+    <ClInclude Include="Meshes\MeshPlane.h">
+      <Filter>Mehses</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Renders">
@@ -150,6 +174,9 @@
     </Filter>
     <Filter Include="Environment">
       <UniqueIdentifier>{49727568-fab0-482c-9105-582d8b80e903}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Mehses">
+      <UniqueIdentifier>{ea57b7c8-e57a-41de-a0d4-051fe4bd549f}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

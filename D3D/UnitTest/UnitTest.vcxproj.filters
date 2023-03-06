@@ -36,6 +36,9 @@
     <ClCompile Include="TerrainDemo.cpp">
       <Filter>Environment</Filter>
     </ClCompile>
+    <ClCompile Include="MeshDemo.cpp">
+      <Filter>Meshes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Main.h" />
@@ -73,6 +76,9 @@
     <ClInclude Include="TerrainDemo.h">
       <Filter>Environment</Filter>
     </ClInclude>
+    <ClInclude Include="MeshDemo.h">
+      <Filter>Meshes</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Vrertex">
@@ -89,6 +95,9 @@
     </Filter>
     <Filter Include="Environment">
       <UniqueIdentifier>{12cbb54a-b405-438e-acc6-e5d19ec3aa26}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Meshes">
+      <UniqueIdentifier>{2fb8b96d-4d0b-4792-9d9a-ebd00c3cd2b7}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

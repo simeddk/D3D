@@ -13,10 +13,11 @@
 #include "TextureDemo.h"
 #include "SamplerStateDemo.h"
 #include "TerrainDemo.h"
+#include "MeshDemo.h"
 
 void Main::Initialize()
 {
-	Push(new TerrainDemo());
+	Push(new MeshDemo());
 }
 
 
