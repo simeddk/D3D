@@ -77,6 +77,27 @@
     <ClCompile Include="Meshes\MeshPlane.cpp">
       <Filter>Mehses</Filter>
     </ClCompile>
+    <ClCompile Include="Meshes\MeshCube.cpp">
+      <Filter>Mehses</Filter>
+    </ClCompile>
+    <ClCompile Include="Meshes\MeshCylinder.cpp">
+      <Filter>Mehses</Filter>
+    </ClCompile>
+    <ClCompile Include="Meshes\MeshSphere.cpp">
+      <Filter>Mehses</Filter>
+    </ClCompile>
+    <ClCompile Include="Objects\CubeMap.cpp">
+      <Filter>Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="Environment\CubeSky.cpp">
+      <Filter>Environment</Filter>
+    </ClCompile>
+    <ClCompile Include="Renders\Buffers.cpp">
+      <Filter>Renders</Filter>
+    </ClCompile>
+    <ClCompile Include="Renders\Transform.cpp">
+      <Filter>Renders</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Framework.h" />
@@ -158,6 +179,27 @@
     <ClInclude Include="Meshes\MeshPlane.h">
       <Filter>Mehses</Filter>
     </ClInclude>
+    <ClInclude Include="Meshes\MeshCube.h">
+      <Filter>Mehses</Filter>
+    </ClInclude>
+    <ClInclude Include="Meshes\MeshCylinder.h">
+      <Filter>Mehses</Filter>
+    </ClInclude>
+    <ClInclude Include="Meshes\MeshSphere.h">
+      <Filter>Mehses</Filter>
+    </ClInclude>
+    <ClInclude Include="Objects\CubeMap.h">
+      <Filter>Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="Environment\CubeSky.h">
+      <Filter>Environment</Filter>
+    </ClInclude>
+    <ClInclude Include="Renders\Buffers.h">
+      <Filter>Renders</Filter>
+    </ClInclude>
+    <ClInclude Include="Renders\Transform.h">
+      <Filter>Renders</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Renders">
@@ -177,6 +219,9 @@
     </Filter>
     <Filter Include="Mehses">
       <UniqueIdentifier>{ea57b7c8-e57a-41de-a0d4-051fe4bd549f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Objects">
+      <UniqueIdentifier>{2c0f690b-cc16-4b53-9836-ef5c6b173f9b}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

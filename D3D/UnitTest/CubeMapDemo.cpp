@@ -1,7 +1,7 @@
 #include "stdafx.h"
-#include "MeshDemo.h"
+#include "CubeMapDemo.h"
 
-void MeshDemo::Initialize()
+void CubeMapDemo::Initialize()
 {
 	Context::Get()->GetCamera()->RotationDegree(20, 0, 0);
 	Context::Get()->GetCamera()->Position(0, 36, -85);
@@ -11,9 +11,17 @@ void MeshDemo::Initialize()
 	CreateMesh();
 	
 	sLightDirection = shader->AsVector("LightDirection");
+
+	cubeMapShader = new Shader(L"11_CubeMap.fxo");
+	cubeMap = new CubeMap(cubeMapShader);
+	cubeMap->Texture(L"Environment/Mountain1024.dds");
+	cubeMap->Position(0, 20, 0);
+	cubeMap->Scale(10, 10, 10);
+
+	sky = new CubeSky(L"Environment/SunsetCube1024.dds");
 }
 
-void MeshDemo::Destroy()
+void CubeMapDemo::Destroy()
 {
 	SafeDelete(shader);
 
@@ -26,12 +34,23 @@ void MeshDemo::Destroy()
 		SafeDelete(cylinders[i])
 		SafeDelete(spheres[i])
 	}
+
+	SafeDelete(cubeMapShader);
+	SafeDelete(cubeMap);
+	
+	SafeDelete(sky);
 }
 
-void MeshDemo::Update()
+void CubeMapDemo::Update()
 {
 	ImGui::SliderFloat3("Dirction", lightDirection, -1, 1);
 	sLightDirection->SetFloatVector(lightDirection);
+
+	static UINT pass = sky->GetShader()->PassCount() - 1;
+	ImGui::InputInt("Sky Pass", (int*)&pass);
+	pass %= sky->GetShader()->PassCount();
+
+	sky->Pass(pass);
 
 	quad->Update();
 	plane->Update();
@@ -42,9 +61,13 @@ void MeshDemo::Update()
 		cylinders[i]->Update();
 		spheres[i]->Update();
 	}
+
+	cubeMap->Update();
+
+	sky->Update();
 }
 
-void MeshDemo::Render()
+void CubeMapDemo::Render()
 {
 	static bool bWireFrame = false;
 	ImGui::Checkbox("WireFrame", &bWireFrame);
@@ -52,6 +75,8 @@ void MeshDemo::Render()
 	quad->Pass(bWireFrame ? 1 : 0);
 	plane->Pass(bWireFrame ? 1 : 0);
 	cube->Pass(bWireFrame ? 1 : 0);
+
+	sky->Render();
 
 	for (UINT i = 0; i < 10; i++)
 	{
@@ -65,9 +90,11 @@ void MeshDemo::Render()
 	quad->Render();
 	plane->Render();
 	cube->Render();
+
+	cubeMap->Render();
 }
 
-void MeshDemo::CreateMesh()
+void CubeMapDemo::CreateMesh()
 {
 	quad = new MeshQuad(shader);
 	quad->DiffuseMap(L"Box.png");

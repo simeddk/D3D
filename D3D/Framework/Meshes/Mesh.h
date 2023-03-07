@@ -40,7 +40,6 @@ protected:
 	virtual void Create() = 0;
 
 private:
-	void CreateBuffer();
 	void UpdateWorld();
 
 protected:
@@ -93,8 +92,8 @@ private:
 	ID3DX11EffectMatrixVariable* sView;
 	ID3DX11EffectMatrixVariable* sProjection;
 
-	ID3D11Buffer* vertexBuffer = nullptr;
-	ID3D11Buffer* indexBuffer = nullptr;
+	VertexBuffer* vertexBuffer = nullptr;
+	IndexBuffer* indexBuffer = nullptr;
 
 	Texture* diffuseMap = nullptr;
 	ID3DX11EffectShaderResourceVariable* sDiffuseMap;

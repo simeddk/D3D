@@ -39,6 +39,9 @@
     <ClCompile Include="MeshDemo.cpp">
       <Filter>Meshes</Filter>
     </ClCompile>
+    <ClCompile Include="CubeMapDemo.cpp">
+      <Filter>Meshes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Main.h" />
@@ -77,6 +80,9 @@
       <Filter>Environment</Filter>
     </ClInclude>
     <ClInclude Include="MeshDemo.h">
+      <Filter>Meshes</Filter>
+    </ClInclude>
+    <ClInclude Include="CubeMapDemo.h">
       <Filter>Meshes</Filter>
     </ClInclude>
   </ItemGroup>
