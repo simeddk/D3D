@@ -28,6 +28,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_Shaders", "_Shaders", "{06
 		_Shaders\11_CubeMap.fx = _Shaders\11_CubeMap.fx
 	EndProjectSection
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ModelEditor", "ModelEditor\ModelEditor.vcxproj", "{E10DCA55-201E-4992-B92E-811A0E372BB6}"
+	ProjectSection(ProjectDependencies) = postProject
+		{98C1EAA9-BF97-42F8-87EB-351704E6994E} = {98C1EAA9-BF97-42F8-87EB-351704E6994E}
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x86 = Debug|x86
@@ -42,6 +47,10 @@ Global
 		{4DB2534E-D57E-436D-9598-0238E8E5D3BF}.Debug|x86.Build.0 = Debug|Win32
 		{4DB2534E-D57E-436D-9598-0238E8E5D3BF}.Release|x86.ActiveCfg = Release|Win32
 		{4DB2534E-D57E-436D-9598-0238E8E5D3BF}.Release|x86.Build.0 = Release|Win32
+		{E10DCA55-201E-4992-B92E-811A0E372BB6}.Debug|x86.ActiveCfg = Debug|Win32
+		{E10DCA55-201E-4992-B92E-811A0E372BB6}.Debug|x86.Build.0 = Debug|Win32
+		{E10DCA55-201E-4992-B92E-811A0E372BB6}.Release|x86.ActiveCfg = Release|Win32
+		{E10DCA55-201E-4992-B92E-811A0E372BB6}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

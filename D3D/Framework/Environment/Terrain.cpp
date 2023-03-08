@@ -2,7 +2,7 @@
 #include "Terrain.h"
 
 Terrain::Terrain(Shader* shader, wstring heighMapFile)
-	: shader(shader)
+	: Renderer(shader)
 {
 	heightMap = new Texture(heighMapFile);
 
@@ -12,8 +12,6 @@ Terrain::Terrain(Shader* shader, wstring heighMapFile)
 	
 	vertexBuffer = new VertexBuffer(vertices, vertexCount, sizeof(VertexTerrain));
 	indexBuffer = new IndexBuffer(indices, indexCount);
-
-	D3DXMatrixIdentity(&world);
 }
 
 Terrain::~Terrain()
@@ -21,54 +19,22 @@ Terrain::~Terrain()
 	SafeDeleteArray(vertices);
 	SafeDeleteArray(indices);
 
-	SafeDelete(vertexBuffer);
-	SafeDelete(indexBuffer);
-
 	SafeDelete(heightMap);
 }
 
 void Terrain::Update()
 {
-	shader->AsMatrix("World")->SetMatrix(world);
-	shader->AsMatrix("View")->SetMatrix(Context::Get()->View());
-	shader->AsMatrix("Projection")->SetMatrix(Context::Get()->Projection());
+	Super::Update();
 }
 
 void Terrain::Render()
 {
-#ifndef VisibleNormal
-	static bool bVisibleNormal = false;
-	static UINT interval = 3;
-
-	ImGui::Checkbox("Visible Normal", &bVisibleNormal);
-	ImGui::SliderInt("Per Vertex", (int*)&interval, 1, 5);
-
-	if (bVisibleNormal)
-	{
-		for (UINT z = 0; z < height; z += interval)
-		{
-			for (UINT x = 0; x < width; x += interval)
-			{
-				UINT index = width * z + x;
-
-				Vector3 start = vertices[index].Position;
-				Vector3 end = vertices[index].Position + vertices[index].Normal * 2.f;
-
-				DebugLine::Get()->RenderLine(start, end, Color(1, 0, 0, 1));
-			}
-		}
-
-	}
-#endif
-
-	D3D::GetDC()->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
-	vertexBuffer->Render();
-	indexBuffer->Render();
-
 	if (baseMap != nullptr)
 		shader->AsSRV("BaseMap")->SetResource(baseMap->SRV());
 
-	shader->DrawIndexed(0, pass, indexCount);
+	Super::Render();
+
+	shader->DrawIndexed(0, Pass(), indexCount);
 }
 
 void Terrain::BaseMap(wstring file)
