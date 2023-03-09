@@ -5,6 +5,7 @@
     <ClCompile Include="stdafx.cpp" />
     <ClCompile Include="Converter.cpp" />
     <ClCompile Include="ExportFile.cpp" />
+    <ClCompile Include="ModelDemo.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Main.h" />
@@ -12,5 +13,6 @@
     <ClInclude Include="Converter.h" />
     <ClInclude Include="ExportFile.h" />
     <ClInclude Include="Types.h" />
+    <ClInclude Include="ModelDemo.h" />
   </ItemGroup>
 </Project>

@@ -2,6 +2,7 @@
 #include "Converter.h"
 #include "Types.h"
 #include "Utilities/BinaryFile.h"
+#include "Utilities/Xml.h"
 
 Converter::Converter()
 {
@@ -158,6 +159,7 @@ void Converter::WriteMeshData(wstring savePath)
 		w->UInt(meshData->Indices.size());
 		w->Byte(&meshData->Indices[0], sizeof(UINT) * meshData->Indices.size());
 
+		w->UInt(meshData->MeshParts.size());
 		for (asMeshPart* part : meshData->MeshParts)
 		{
 			w->String(part->MaterialName);
@@ -171,4 +173,160 @@ void Converter::WriteMeshData(wstring savePath)
 	}
 
 	SafeDelete(w);
+}
+
+void Converter::ExportMaterial(wstring savePath, bool bOverWrite)
+{
+	savePath = L"../../_Textures/" + savePath + L".material";
+
+	if (bOverWrite == false)
+	{
+		if (Path::ExistFile(savePath) == true)
+			return;
+	}
+
+	ReadMaterial();
+	WriteMaterialData(savePath);
+}
+
+void Converter::ReadMaterial()
+{
+	for (UINT i = 0; i < scene->mNumMaterials; i++)
+	{
+		aiMaterial* srcMaterial = scene->mMaterials[i];
+		if (FoundMaterialData(srcMaterial) == false)
+			continue;
+
+		asMaterial* material = new asMaterial();
+		material->Name = srcMaterial->GetName().C_Str();
+
+		aiColor3D color;
+
+		srcMaterial->Get(AI_MATKEY_COLOR_AMBIENT, color);
+		material->Ambient = Color(color.r, color.g, color.b, 1.f);
+
+		srcMaterial->Get(AI_MATKEY_COLOR_DIFFUSE, color);
+		material->Diffuse = Color(color.r, color.g, color.b, 1.f);
+
+		srcMaterial->Get(AI_MATKEY_COLOR_SPECULAR, color);
+		material->Specular = Color(color.r, color.g, color.b, 1.f);
+
+		srcMaterial->Get(AI_MATKEY_SHININESS, material->Specular.a);
+
+		srcMaterial->Get(AI_MATKEY_COLOR_EMISSIVE, color);
+		material->Emissive = Color(color.r, color.g, color.b, 1.f);
+
+		aiString file;
+
+		srcMaterial->GetTexture(aiTextureType_DIFFUSE, 0, &file);
+		material->DiffuseFile = file.C_Str();
+
+		srcMaterial->GetTexture(aiTextureType_SPECULAR, 0, &file);
+		material->SpecularFile = file.C_Str();
+
+		srcMaterial->GetTexture(aiTextureType_NORMALS, 0, &file);
+		material->NormalFile = file.C_Str();
+
+		materials.push_back(material);
+	}
+}
+
+bool Converter::FoundMaterialData(aiMaterial* material)
+{
+	string materialName = material->GetName().C_Str();
+
+	for (asMesh* mesh : meshes)
+	{
+		for (asMeshPart* part : mesh->MeshParts)
+		{
+			if (materialName == part->MaterialName)
+				return true;
+		}
+	}
+
+	return false;
+}
+
+void Converter::WriteMaterialData(wstring savePath)
+{
+	string folder = String::ToString(Path::GetDirectoryName(savePath));
+	string file = String::ToString(Path::GetFileName(savePath));
+
+	Path::CreateFolders(folder);
+
+	Xml::XMLDocument* document = new Xml::XMLDocument();
+	Xml::XMLDeclaration* decl = document->NewDeclaration();
+	document->LinkEndChild(decl);
+
+	Xml::XMLElement* root = document->NewElement("Materials");
+	root->SetAttribute("xmlns:xsi", "http://www.w3.org/2001/XMLSchema-instance");
+	root->SetAttribute("xmlns:xsd", "http://www.w3.org/2001/XMLSchema");
+	document->LinkEndChild(root);
+
+	for (asMaterial* material : materials)
+	{
+		Xml::XMLElement* node = document->NewElement("Material");
+		root->LinkEndChild(node);
+		
+		Xml::XMLElement* element = nullptr;
+
+		element = document->NewElement("Name");
+		element->SetText(material->Name.c_str());
+		node->LinkEndChild(element);
+
+		element = document->NewElement("DiffuseFile");
+		element->SetText(WriteTexture(folder, material->DiffuseFile).c_str());
+		node->LinkEndChild(element);
+
+		element = document->NewElement("SpecularFile");
+		element->SetText(WriteTexture(folder, material->SpecularFile).c_str());
+		node->LinkEndChild(element);
+
+		element = document->NewElement("NormalFile");
+		element->SetText(WriteTexture(folder, material->NormalFile).c_str());
+		node->LinkEndChild(element);
+
+		element = document->NewElement("Ambient");
+		element->SetAttribute("R", material->Ambient.r);
+		element->SetAttribute("G", material->Ambient.g);
+		element->SetAttribute("B", material->Ambient.b);
+		element->SetAttribute("A", material->Ambient.a);
+		node->LinkEndChild(element);
+
+		element = document->NewElement("Diffuse");
+		element->SetAttribute("R", material->Diffuse.r);
+		element->SetAttribute("G", material->Diffuse.g);
+		element->SetAttribute("B", material->Diffuse.b);
+		element->SetAttribute("A", material->Diffuse.a);
+		node->LinkEndChild(element);
+
+		element = document->NewElement("Specular");
+		element->SetAttribute("R", material->Specular.r);
+		element->SetAttribute("G", material->Specular.g);
+		element->SetAttribute("B", material->Specular.b);
+		element->SetAttribute("A", material->Specular.a);
+		node->LinkEndChild(element);
+
+		element = document->NewElement("Emissive");
+		element->SetAttribute("R", material->Emissive.r);
+		element->SetAttribute("G", material->Emissive.g);
+		element->SetAttribute("B", material->Emissive.b);
+		element->SetAttribute("A", material->Emissive.a);
+		node->LinkEndChild(element);
+	}
+
+	document->SaveFile((folder + file).c_str());
+	SafeDelete(document);
+}
+
+string Converter::WriteTexture(string saveFolder, string file)
+{
+	if (file.length() < 1) return;
+	//Embeded -> Kachujin
+
+	//Extern Texture -> Tower, B787
+
+	//No Texture -> Tank
+
+	return string();
 }

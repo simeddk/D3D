@@ -26,6 +26,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_Shaders", "_Shaders", "{06
 		_Shaders\09_Terrain.fx = _Shaders\09_Terrain.fx
 		_Shaders\10_Mesh.fx = _Shaders\10_Mesh.fx
 		_Shaders\11_CubeMap.fx = _Shaders\11_CubeMap.fx
+		_Shaders\12_Model.fx = _Shaders\12_Model.fx
 	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ModelEditor", "ModelEditor\ModelEditor.vcxproj", "{E10DCA55-201E-4992-B92E-811A0E372BB6}"

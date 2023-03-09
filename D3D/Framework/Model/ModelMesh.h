@@ -12,6 +12,17 @@ private:
 	ModelBone();
 	~ModelBone();
 
+public:
+	wstring Name() { return name; }
+
+	int ParentIndex() { return parentIndex; }
+	ModelBone* Parent() { return parent; }
+
+	Matrix& Transform() { return transform; }
+	void Transform(Matrix& matrix) { transform = matrix; }
+
+	vector<ModelBone*>& Children() { return children; }
+
 private:
 	int index;
 	wstring name;
@@ -46,9 +57,10 @@ public:
 	void Render();
 
 	int BoneIndex() { return boneIndex; }
-	void Transforms(Matrix* transforms);
+	class ModelBone* Bone() { return bone; }
 
-	void SetTransform(Transform* transform);
+	void Transforms(Matrix* transforms); //BoneTransform
+	void SetTransform(Transform* transform); //ActorTransform
 
 private:
 	struct BoneDesc
@@ -87,7 +99,31 @@ private:
 //------------------------------------------------------------
 class ModelMeshPart
 {
+public:
+	friend class Model;
+	friend class ModelMesh;
 
+private:
+	ModelMeshPart();
+	~ModelMeshPart();
 
+	void Update();
+	void Render();
 
+	void Binding(Model* model);
+	void SetShader(Shader* shader);
+
+	void Pass(UINT val) { pass = val; }
+
+private:
+	Shader* shader;
+	UINT pass = 0;
+
+	wstring materialName;
+
+	UINT startVertex;
+	UINT vertexCount;
+
+	UINT startIndex;
+	UINT indexCount;
 };

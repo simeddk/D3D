@@ -58,21 +58,81 @@ void ModelMesh::SetShader(Shader* shader)
 {
 	this->shader = shader;
 
-	//Todo
+	SafeDelete(transform);
+	transform = new Transform(shader);
+
+	SafeDelete(perFrame);
+	perFrame = new PerFrame(shader);
+
+	sBoneBuffer = shader->AsConstantBuffer("CB_Bones");
+
+	for (ModelMeshPart* part : meshParts)
+		part->SetShader(shader);
 }
 
 void ModelMesh::Update()
 {
+	boneDesc.BoneIndex = boneIndex;
+
+	perFrame->Update();
+	transform->Update();
+
+	for (ModelMeshPart* part : meshParts)
+		part->Update();
 }
 
 void ModelMesh::Render()
 {
+	boneBuffer->Render();
+	sBoneBuffer->SetConstantBuffer(boneBuffer->Buffer());
+
+	perFrame->Render();
+	transform->Render();
+
+	vertexBuffer->Render();
+	indexBuffer->Render();
+
+	D3D::GetDC()->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+
+	for (ModelMeshPart* part : meshParts)
+		part->Render();
 }
 
 void ModelMesh::Transforms(Matrix* transforms)
 {
+	memcpy(boneDesc.Transforms, transforms, sizeof(Matrix) * MAX_MODEL_TRANSFORMS);
 }
 
 void ModelMesh::SetTransform(Transform* transform)
 {
+	this->transform->Set(transform);
+}
+
+//------------------------------------------------------------
+//ModelMeshPart
+//------------------------------------------------------------
+ModelMeshPart::ModelMeshPart()
+{
+}
+
+ModelMeshPart::~ModelMeshPart()
+{
+}
+
+void ModelMeshPart::Update()
+{
+}
+
+void ModelMeshPart::Render()
+{
+	shader->DrawIndexed(0, pass, indexCount, startVertex);
+}
+
+void ModelMeshPart::Binding(Model* model)
+{
+}
+
+void ModelMeshPart::SetShader(Shader* shader)
+{
+	this->shader = shader;
 }

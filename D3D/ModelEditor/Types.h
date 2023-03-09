@@ -30,3 +30,17 @@ struct asMesh
 
 	vector<asMeshPart*> MeshParts;
 };
+
+struct asMaterial
+{
+	string Name;
+
+	Color Ambient;
+	Color Diffuse;
+	Color Specular;
+	Color Emissive;
+
+	string DiffuseFile;
+	string SpecularFile;
+	string NormalFile;
+};
