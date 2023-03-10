@@ -119,6 +119,7 @@ private:
 	Shader* shader;
 	UINT pass = 0;
 
+	Material* material = nullptr;
 	wstring materialName;
 
 	UINT startVertex;

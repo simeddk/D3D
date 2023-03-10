@@ -1,4 +1,5 @@
 #include "00_Global.fx"
+#include "00_Light.fx"
 
 float3 LightDirection = float3(-1, -1, 1);
 
@@ -45,8 +46,9 @@ float4 PS(VertexOutput input) : SV_Target
 {
 	float3 normal = normalize(input.Normal);
 	float lambert = dot(normal, -LightDirection);
+	float4 diffuse = DiffuseMap.Sample(LinearSampler, input.Uv);
 	
-	return float4(1, 1, 1, 1) * lambert;
+	return diffuse * lambert;
 }
 
 technique11 T0

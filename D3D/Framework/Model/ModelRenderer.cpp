@@ -42,8 +42,13 @@ void ModelRenderer::Render()
 
 void ModelRenderer::ReadMesh(wstring file)
 {
-	bRead = true;
 	model->ReadMesh(file);
+}
+
+void ModelRenderer::ReadMaterial(wstring file)
+{
+	model->ReadMaterial(file);
+	bRead = true;
 }
 
 void ModelRenderer::Pass(UINT pass)
