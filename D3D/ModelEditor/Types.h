@@ -94,6 +94,8 @@ public:
 			{
 				BoneWeights.insert(it, Pair(boneIndex, boneWeights));
 				bAdd = true;
+
+				break;
 			}
 
 			it++;
