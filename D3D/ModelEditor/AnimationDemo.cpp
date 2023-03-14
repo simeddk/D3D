@@ -35,6 +35,38 @@ void AnimationDemo::Update()
 {
 	//Test
 	{
+		static int clip = 0;
+		static float speed = 1.f;
+		static float takeTime = 0.1f;
+
+		static bool blendMode = false;
+		static float blendAlpha = 0.f;
+
+		ImGui::Checkbox("BlendMode", &blendMode);
+
+		if (blendMode == false) //Tweening
+		{
+			ImGui::InputInt("Clip", &clip);
+			clip = (int)Math::Clamp(clip, 0, 4);
+
+			const char* clipName[] = { "Idle", "Walk", "Run", "Slash", "Uprock" };
+			ImGui::Text("%s", clipName[clip]);
+			ImGui::SliderFloat("Speed", &speed, 0.1f, 5.f);
+			ImGui::SliderFloat("TakeTime", &takeTime, 0.1f, 5.f);
+
+			if (ImGui::Button("Apply"))
+				kachujin->PlayTweenMode(clip, speed, takeTime);
+		}
+		else //Bleding
+		{
+			ImGui::SliderFloat("BlendAlpha", &blendAlpha, 0, 2);
+			kachujin->SetBlendAlpha(blendAlpha);
+
+			if (ImGui::Button("Apply"))
+				kachujin->PlayBlendMode(0, 1, 2);
+		}
+
+
 		static Vector3 LightDirection = Vector3(-1, -1, 1);
 		ImGui::SliderFloat3("LightDirection", LightDirection, -1, 1);
 		shader->AsVector("LightDirection")->SetFloatVector(LightDirection);

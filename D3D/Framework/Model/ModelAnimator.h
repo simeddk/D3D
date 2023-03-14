@@ -11,6 +11,7 @@ public:
 
 private:
 	void UpdateAnimationFrame();
+	void UpdateBlendingFrame();
 
 public:
 	void ReadMesh(wstring file);
@@ -18,6 +19,8 @@ public:
 	void ReadClip(wstring file);
 
 	void PlayTweenMode(UINT clip, float speed = 1.f, float takeTime = 1.f);
+	void PlayBlendMode(UINT clip1, UINT clip2, UINT clip3);
+	void SetBlendAlpha(float alpha);
 
 public:
 	void SetShader(Shader* shader, bool bFirst = false);
@@ -76,7 +79,7 @@ private:
 private:
 	struct TweenDesc
 	{
-		float TakeTime = 1.f;
+		float TakeTime = 0.1f;
 		float TweenTime = 0.f;
 		float ChangeTime = 0.f;
 		float Padding;
@@ -84,7 +87,7 @@ private:
 		KeyFrameDesc Curr;
 		KeyFrameDesc Next;
 
-		TweeDesc()
+		TweenDesc()
 		{
 			Curr.Clip = 0;
 			Next.Clip = -1;
@@ -93,6 +96,19 @@ private:
 	
 	ConstantBuffer* frameBuffer;
 	ID3DX11EffectConstantBuffer* sFrameBuffer;
+
+private:
+	struct BlendDesc
+	{
+		UINT Mode = 0;
+		float Alpha = 0;
+		Vector2 Padding;
+
+		KeyFrameDesc Clip[3];
+	} blendDesc;
+
+	ConstantBuffer* blendBuffer;
+	ID3DX11EffectConstantBuffer* sBlendBuffer;
 
 private:
 	Shader* shader;
