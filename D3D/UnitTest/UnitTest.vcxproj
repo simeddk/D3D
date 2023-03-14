@@ -151,6 +151,7 @@
     <ClCompile Include="GridDemo.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="MeshDemo.cpp" />
+    <ClCompile Include="RawBufferDemo.cpp" />
     <ClCompile Include="RectDemo.cpp" />
     <ClCompile Include="SamplerStateDemo.cpp" />
     <ClCompile Include="stdafx.cpp">
@@ -170,6 +171,7 @@
     <ClInclude Include="GridDemo.h" />
     <ClInclude Include="Main.h" />
     <ClInclude Include="MeshDemo.h" />
+    <ClInclude Include="RawBufferDemo.h" />
     <ClInclude Include="RectDemo.h" />
     <ClInclude Include="SamplerStateDemo.h" />
     <ClInclude Include="stdafx.h" />

@@ -4,13 +4,13 @@
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="stdafx.cpp" />
     <ClCompile Include="VertexLineColorDemo.cpp">
-      <Filter>Vrertex</Filter>
+      <Filter>Vertex</Filter>
     </ClCompile>
     <ClCompile Include="VertexLineDemo.cpp">
-      <Filter>Vrertex</Filter>
+      <Filter>Vertex</Filter>
     </ClCompile>
     <ClCompile Include="VertexTopologyDemo.cpp">
-      <Filter>Vrertex</Filter>
+      <Filter>Vertex</Filter>
     </ClCompile>
     <ClCompile Include="TriangleDemo.cpp">
       <Filter>Section</Filter>
@@ -42,18 +42,21 @@
     <ClCompile Include="CubeMapDemo.cpp">
       <Filter>Meshes</Filter>
     </ClCompile>
+    <ClCompile Include="RawBufferDemo.cpp">
+      <Filter>Compute</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Main.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="VertexLineColorDemo.h">
-      <Filter>Vrertex</Filter>
+      <Filter>Vertex</Filter>
     </ClInclude>
     <ClInclude Include="VertexLineDemo.h">
-      <Filter>Vrertex</Filter>
+      <Filter>Vertex</Filter>
     </ClInclude>
     <ClInclude Include="VertexTopologyDemo.h">
-      <Filter>Vrertex</Filter>
+      <Filter>Vertex</Filter>
     </ClInclude>
     <ClInclude Include="TriangleDemo.h">
       <Filter>Section</Filter>
@@ -85,11 +88,11 @@
     <ClInclude Include="CubeMapDemo.h">
       <Filter>Meshes</Filter>
     </ClInclude>
+    <ClInclude Include="RawBufferDemo.h">
+      <Filter>Compute</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <Filter Include="Vrertex">
-      <UniqueIdentifier>{dcbf1656-428f-4d1c-91a0-5341b7891e9b}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Section">
       <UniqueIdentifier>{383cba42-d4d5-4ddf-9713-eec0be0c2214}</UniqueIdentifier>
     </Filter>
@@ -104,6 +107,12 @@
     </Filter>
     <Filter Include="Meshes">
       <UniqueIdentifier>{2fb8b96d-4d0b-4792-9d9a-ebd00c3cd2b7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Vertex">
+      <UniqueIdentifier>{dcbf1656-428f-4d1c-91a0-5341b7891e9b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Compute">
+      <UniqueIdentifier>{93484aeb-d576-49dd-9e8f-acc539250c2b}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

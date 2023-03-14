@@ -15,10 +15,11 @@
 #include "TerrainDemo.h"
 #include "MeshDemo.h"
 #include "CubeMapDemo.h"
+#include "RawBufferDemo.h"
 
 void Main::Initialize()
 {
-	Push(new CubeMapDemo());
+	Push(new RawBufferDemo());
 }
 
 
