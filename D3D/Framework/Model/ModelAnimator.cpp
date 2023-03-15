@@ -9,6 +9,21 @@ ModelAnimator::ModelAnimator(Shader* shader)
 
 	frameBuffer = new ConstantBuffer(&tweenDesc, sizeof(TweenDesc));
 	blendBuffer = new ConstantBuffer(&blendDesc, sizeof(BlendDesc));
+
+	//Compute Shader
+	{
+		computeShader = new Shader(L"17_GetBones.fxo");
+
+		sComputeWorld = computeShader->AsMatrix("World");
+
+		sComputeFrameBuffer = computeShader->AsConstantBuffer("CB_AnimationFrame");
+		sComputeBlendBuffer = computeShader->AsConstantBuffer("CB_BlendingFrame");
+		sComputeTransformsSRV = computeShader->AsSRV("TransformsMap");
+
+		computeBoneBuffer = new StructuredBuffer(nullptr, sizeof(Matrix), MAX_MODEL_TRANSFORMS, sizeof(Matrix), MAX_MODEL_TRANSFORMS);
+		sComputeInputBoneBuffer = computeShader->AsSRV("InputBones");
+		sComputeOutputBoneBuffer = computeShader->AsUAV("OutputBones");
+	}
 }
 
 ModelAnimator::~ModelAnimator()
@@ -22,6 +37,9 @@ ModelAnimator::~ModelAnimator()
 
 	SafeDelete(frameBuffer);
 	SafeDelete(blendBuffer);
+
+	SafeDelete(computeShader);
+	SafeDelete(computeBoneBuffer);
 }
 
 void ModelAnimator::Update()
@@ -30,6 +48,12 @@ void ModelAnimator::Update()
 	{
 		SetShader(shader, true);
 		CreateTexture();
+
+		Matrix bones[MAX_MODEL_TRANSFORMS];
+		for (UINT i = 0; i < model->BoneCount(); i++)
+			bones[i] = model->BoneByIndex(i)->Transform();
+
+		computeBoneBuffer->CopyToInput(bones);
 	}
 
 	if (blendDesc.Mode == 0)
@@ -37,16 +61,32 @@ void ModelAnimator::Update()
 	else
 		UpdateBlendingFrame();
 
+	frameBuffer->Render();
+	blendBuffer->Render();
+
+	frameTime += Time::Delta();
+	if (frameTime > (1 / frameRate))
+	{
+		sComputeWorld->SetMatrix(transform->World());
+
+		sComputeFrameBuffer->SetConstantBuffer(frameBuffer->Buffer());
+		sComputeBlendBuffer->SetConstantBuffer(blendBuffer->Buffer());
+		sComputeTransformsSRV->SetResource(transformsSRV);
+
+		sComputeInputBoneBuffer->SetResource(computeBoneBuffer->SRV());
+		sComputeOutputBoneBuffer->SetUnorderedAccessView(computeBoneBuffer->UAV());
+
+		computeShader->Dispatch(0, 0, 1, 1, 1);
+	}
+	frameTime = fmod(frameTime, (1.f / frameRate));
+
 	for (ModelMesh* mesh : model->Meshes())
 		mesh->Update();
 }
 
 void ModelAnimator::Render()
 {
-	frameBuffer->Render();
 	sFrameBuffer->SetConstantBuffer(frameBuffer->Buffer());
-
-	blendBuffer->Render();
 	sBlendBuffer->SetConstantBuffer(blendBuffer->Buffer());
 
 	sTransformsSRV->SetResource(transformsSRV);
@@ -133,7 +173,7 @@ void ModelAnimator::UpdateBlendingFrame()
 		}
 		desc.Clip[i].Time = desc.Clip[i].RunningTime / time;
 	}
-	
+
 }
 
 void ModelAnimator::ReadMesh(wstring file)
@@ -201,6 +241,11 @@ void ModelAnimator::Pass(UINT pass)
 		mesh->Pass(pass);
 }
 
+void ModelAnimator::GetAttachBones(Matrix* matrix)
+{
+	computeBoneBuffer->CopyFromOutput(matrix);
+}
+
 void ModelAnimator::CreateTexture()
 {
 	clipTransforms = new ClipTransform[model->ClipCount()];
@@ -224,7 +269,7 @@ void ModelAnimator::CreateTexture()
 
 		void* p = VirtualAlloc(nullptr, pageSize * model->ClipCount(), MEM_RESERVE, PAGE_READWRITE);
 
-		for (UINT c = 0 ; c < model->ClipCount(); c++)
+		for (UINT c = 0; c < model->ClipCount(); c++)
 		{
 			UINT start = c * pageSize;
 
@@ -232,7 +277,7 @@ void ModelAnimator::CreateTexture()
 			{
 				void* temp = (BYTE*)p + MAX_MODEL_TRANSFORMS * k * sizeof(Matrix) + start;
 				VirtualAlloc(temp, MAX_MODEL_TRANSFORMS * sizeof(Matrix), MEM_COMMIT, PAGE_READWRITE);
-				
+
 				memcpy(temp, clipTransforms[c].Transforms[k], MAX_MODEL_TRANSFORMS * sizeof(Matrix));
 			}
 		}
@@ -275,7 +320,7 @@ void ModelAnimator::CreateClipTransform(UINT index)
 		for (UINT b = 0; b < model->BoneCount(); b++)
 		{
 			ModelBone* bone = model->BoneByIndex(b);
-			
+
 			Matrix inv = bone->Transform();
 			D3DXMatrixInverse(&inv, nullptr, &inv);
 
@@ -313,5 +358,5 @@ void ModelAnimator::CreateClipTransform(UINT index)
 		}
 	}
 
-	
+
 }

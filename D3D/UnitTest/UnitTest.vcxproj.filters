@@ -45,6 +45,9 @@
     <ClCompile Include="RawBufferDemo.cpp">
       <Filter>Compute</Filter>
     </ClCompile>
+    <ClCompile Include="TextureBufferDemo.cpp">
+      <Filter>Compute</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Main.h" />
@@ -89,6 +92,9 @@
       <Filter>Meshes</Filter>
     </ClInclude>
     <ClInclude Include="RawBufferDemo.h">
+      <Filter>Compute</Filter>
+    </ClInclude>
+    <ClInclude Include="TextureBufferDemo.h">
       <Filter>Compute</Filter>
     </ClInclude>
   </ItemGroup>
