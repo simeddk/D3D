@@ -8,27 +8,19 @@ void AnimationDemo::Initialize()
 	Context::Get()->GetCamera()->Position(2, 4, -12);
 	((Freedom*)Context::Get()->GetCamera())->Speed(10, 2);
 
-	shader = new Shader(L"13_Animation.fxo");
+	shader = new Shader(L"18_Unify.fxo");
 
 	Kachujin();
 
-	sky = new CubeSky(L"Environment/Mountain1024.dds");
-	sky->Pass(2);
-
-	planeShader = new Shader(L"10_Mesh.fxo");
-	plane = new MeshPlane(planeShader, 6, 6);
-	plane->GetTransform()->Scale(12, 1, 12);
-	plane->DiffuseMap(L"Floor.png");
 }
 
 void AnimationDemo::Destroy()
 {
 	SafeDelete(shader);
-	SafeDelete(sky);
-	SafeDelete(planeShader);
-	SafeDelete(plane);
+	SafeDelete(weapon);
 
 	SafeDelete(kachujin);
+	SafeDelete(colliderObject);
 }
 
 void AnimationDemo::Update()
@@ -67,32 +59,35 @@ void AnimationDemo::Update()
 		}
 
 
-		static Vector3 LightDirection = Vector3(-1, -1, 1);
-		ImGui::SliderFloat3("LightDirection", LightDirection, -1, 1);
-		shader->AsVector("LightDirection")->SetFloatVector(LightDirection);
-		planeShader->AsVector("LightDirection")->SetFloatVector(LightDirection);
-
-		static UINT Pass = 0;
-		ImGui::InputInt("Pass", (int*)&Pass);
-		Pass %= 2;
-		kachujin->Pass(Pass);
-
 	}
 
-	sky->Update();
-	plane->Update();
-
+	
 	if (kachujin != nullptr)
+	{
 		kachujin->Update();
+
+		kachujin->GetAttachBones(bones);
+		colliderObject->World->World(bones[40]);
+
+		Transform* weaponTransform = weapon->GetTransform();
+		weaponTransform->World(weaponInitTransform->World() * bones[40]);
+		weapon->Update();
+	}
 }
 
 void AnimationDemo::Render()
 {
-	sky->Render();
-	plane->Render();
-
+	
 	if (kachujin != nullptr)
+	{
+		kachujin->Pass(2);
 		kachujin->Render();
+
+		colliderObject->Collision->Render();
+
+		weapon->Pass(1);
+		weapon->Render();
+	}
 }
 
 void AnimationDemo::Kachujin()
@@ -109,4 +104,19 @@ void AnimationDemo::Kachujin()
 
 	kachujin->GetTransform()->Scale(0.01f, 0.01f, 0.01f);
 	kachujin->GetTransform()->Position(5, 0, 0);
+
+	colliderObject = new ColliderObject();
+	colliderObject->Init->Position(-2.9f, 1.45f, -50.0f);
+	colliderObject->Init->Scale(5, 5, 75);
+	colliderObject->Init->Rotation(0, 0, 1);
+	ZeroMemory(&bones, sizeof(Matrix) * MAX_MODEL_TRANSFORMS);
+
+	weapon = new ModelRenderer(shader);
+	weapon->ReadMesh(L"Weapon/Sword");
+	weapon->ReadMaterial(L"Weapon/Sword");
+
+	weaponInitTransform = new Transform();
+	weaponInitTransform->Position(-2.9f, 1.45f, -6.45f);
+	weaponInitTransform->Scale(0.5f, 0.5f, 0.75f);
+	weaponInitTransform->Rotation(0, 0, 1);
 }

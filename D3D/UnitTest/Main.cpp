@@ -17,10 +17,11 @@
 #include "CubeMapDemo.h"
 #include "RawBufferDemo.h"
 #include "TextureBufferDemo.h"
+#include "InstancingDemo.h"
 
 void Main::Initialize()
 {
-	Push(new TextureBufferDemo());
+	Push(new InstancingDemo());
 }
 
 

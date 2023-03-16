@@ -48,6 +48,9 @@
     <ClCompile Include="TextureBufferDemo.cpp">
       <Filter>Compute</Filter>
     </ClCompile>
+    <ClCompile Include="InstancingDemo.cpp">
+      <Filter>Instancing</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Main.h" />
@@ -97,6 +100,9 @@
     <ClInclude Include="TextureBufferDemo.h">
       <Filter>Compute</Filter>
     </ClInclude>
+    <ClInclude Include="InstancingDemo.h">
+      <Filter>Instancing</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Section">
@@ -119,6 +125,9 @@
     </Filter>
     <Filter Include="Compute">
       <UniqueIdentifier>{93484aeb-d576-49dd-9e8f-acc539250c2b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Instancing">
+      <UniqueIdentifier>{e628a51b-c8b9-46a6-9c3d-24c652ba0aa4}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

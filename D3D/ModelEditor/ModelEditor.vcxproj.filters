@@ -3,18 +3,48 @@
   <ItemGroup>
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="stdafx.cpp" />
-    <ClCompile Include="Converter.cpp" />
-    <ClCompile Include="ExportFile.cpp" />
-    <ClCompile Include="ModelDemo.cpp" />
-    <ClCompile Include="AnimationDemo.cpp" />
+    <ClCompile Include="Converter.cpp">
+      <Filter>Export</Filter>
+    </ClCompile>
+    <ClCompile Include="ExportFile.cpp">
+      <Filter>Export</Filter>
+    </ClCompile>
+    <ClCompile Include="AnimationDemo.cpp">
+      <Filter>Demo</Filter>
+    </ClCompile>
+    <ClCompile Include="ModelDemo.cpp">
+      <Filter>Demo</Filter>
+    </ClCompile>
+    <ClCompile Include="MeshDemo.cpp">
+      <Filter>Demo</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Main.h" />
     <ClInclude Include="stdafx.h" />
-    <ClInclude Include="Converter.h" />
-    <ClInclude Include="ExportFile.h" />
     <ClInclude Include="Types.h" />
-    <ClInclude Include="ModelDemo.h" />
-    <ClInclude Include="AnimationDemo.h" />
+    <ClInclude Include="Converter.h">
+      <Filter>Export</Filter>
+    </ClInclude>
+    <ClInclude Include="ExportFile.h">
+      <Filter>Export</Filter>
+    </ClInclude>
+    <ClInclude Include="AnimationDemo.h">
+      <Filter>Demo</Filter>
+    </ClInclude>
+    <ClInclude Include="ModelDemo.h">
+      <Filter>Demo</Filter>
+    </ClInclude>
+    <ClInclude Include="MeshDemo.h">
+      <Filter>Demo</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Export">
+      <UniqueIdentifier>{fcb56605-bd2e-4fb2-8e35-911914d3658a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Demo">
+      <UniqueIdentifier>{9430ef12-eeb5-4cae-b012-5377fae022fb}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
 </Project>

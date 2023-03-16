@@ -16,6 +16,8 @@ ColliderObject::~ColliderObject()
 }
 
 Collider::Collider(Transform* transform, Transform* init)
+	: transform(transform)
+	, init(init)
 {
 	lines[0] = Vector3(-0.5f, -0.5f, -0.5f);
 	lines[1] = Vector3(-0.5f, +0.5f, -0.5f);

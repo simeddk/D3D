@@ -1,7 +1,7 @@
 #pragma once
 #include "Systems/IExecute.h"
 
-class ModelDemo : public IExecute
+class MeshDemo : public IExecute
 {
 public:
 	virtual void Initialize() override;
@@ -13,15 +13,11 @@ public:
 	virtual void ResizeScreen() override {};
 
 private:
-	void Tank();
-	void Tower();
-	void Airplane();
-
-private:
 	Shader* shader;
-	ModelRenderer* tank = nullptr;
-	ModelRenderer* tower = nullptr;
-	ModelRenderer* airplane = nullptr;
+	
+	Material* planeMaterial;
+	MeshRenderer* plane;
 
-	CubeSky* sky;
+	Material* boxMaterial;
+	MeshRenderer* box;
 };

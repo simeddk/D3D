@@ -20,6 +20,20 @@ cbuffer CB_World
 };
 
 //-----------------------------------------------------------------------------
+//MeshOutput(VS -> RS)
+//-----------------------------------------------------------------------------
+struct MeshOutput
+{
+	float4 Position : SV_Position;
+	float3 oPosition : Position1;
+	float3 wPosition : Position2;
+    
+	float3 Normal : Normal;
+	float2 Uv : Uv;
+	float4 Color : Color;
+};
+
+//-----------------------------------------------------------------------------
 //Functions
 //-----------------------------------------------------------------------------
 float4 WorldPosition(float4 position)
@@ -29,7 +43,7 @@ float4 WorldPosition(float4 position)
 
 float4 ViewProjection(float4 position)
 {
-    return mul(position, VP);
+	return mul(position, VP);
 }
 
 float3 WorldNormal(float3 normal)

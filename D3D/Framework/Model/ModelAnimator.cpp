@@ -28,6 +28,9 @@ ModelAnimator::ModelAnimator(Shader* shader)
 
 ModelAnimator::~ModelAnimator()
 {
+	SafeDelete(computeShader);
+	//SafeDelete(computeBoneBuffer);
+
 	SafeDelete(model);
 	SafeDelete(transform);
 
@@ -37,9 +40,6 @@ ModelAnimator::~ModelAnimator()
 
 	SafeDelete(frameBuffer);
 	SafeDelete(blendBuffer);
-
-	SafeDelete(computeShader);
-	SafeDelete(computeBoneBuffer);
 }
 
 void ModelAnimator::Update()

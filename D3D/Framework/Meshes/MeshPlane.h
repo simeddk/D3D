@@ -3,7 +3,7 @@
 class MeshPlane : public Mesh
 {
 public:
-	MeshPlane(Shader* shader, float offsetU = 1.f, float offsetV = 1.f);
+	MeshPlane(float offsetU = 1.f, float offsetV = 1.f);
 	~MeshPlane();
 
 private:

@@ -19,9 +19,9 @@ private:
 	Shader* shader;
 	ModelAnimator* kachujin = nullptr;
 
-	CubeSky* sky;
-	Shader* planeShader;
-	MeshPlane* plane;
+	ColliderObject* colliderObject;
+	Matrix bones[MAX_MODEL_TRANSFORMS];
 
-	//Todo. 컬리전 어타치하기
+	ModelRenderer* weapon = nullptr;
+	Transform* weaponInitTransform = nullptr;
 };

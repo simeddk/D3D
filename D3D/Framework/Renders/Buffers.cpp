@@ -363,6 +363,9 @@ ID3D11Texture2D* TextureBuffer::CopyFromOutput()
 	return result;
 }
 
+//--------------------------------------------------------------
+// StructuredBuffer
+//--------------------------------------------------------------
 StructuredBuffer::StructuredBuffer(void* inputData, UINT inputStride, UINT inputCount, UINT outputStride, UINT outputCount)
 	: inputData(inputData)
 	, inputStride(inputStride)
@@ -399,7 +402,7 @@ void StructuredBuffer::CreateInput()
 	D3D11_SUBRESOURCE_DATA subResource = { 0 };
 	subResource.pSysMem = inputData;
 
-	Check(D3D::GetDevice()->CreateBuffer(&desc, &subResource, &buffer));
+	Check(D3D::GetDevice()->CreateBuffer(&desc, inputData != nullptr ? &subResource : nullptr, &buffer));
 
 	input = buffer;
 }

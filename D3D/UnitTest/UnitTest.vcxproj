@@ -90,7 +90,7 @@
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>false</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <ConformanceMode>true</ConformanceMode>
+      <ConformanceMode>false</ConformanceMode>
       <AdditionalIncludeDirectories>./;../../_Libraries/;../Framework/</AdditionalIncludeDirectories>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <PrecompiledHeader>Use</PrecompiledHeader>
@@ -149,6 +149,7 @@
     <ClCompile Include="CubeDemo.cpp" />
     <ClCompile Include="CubeMapDemo.cpp" />
     <ClCompile Include="GridDemo.cpp" />
+    <ClCompile Include="InstancingDemo.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="MeshDemo.cpp" />
     <ClCompile Include="RawBufferDemo.cpp" />
@@ -170,6 +171,7 @@
     <ClInclude Include="CubeDemo.h" />
     <ClInclude Include="CubeMapDemo.h" />
     <ClInclude Include="GridDemo.h" />
+    <ClInclude Include="InstancingDemo.h" />
     <ClInclude Include="Main.h" />
     <ClInclude Include="MeshDemo.h" />
     <ClInclude Include="RawBufferDemo.h" />

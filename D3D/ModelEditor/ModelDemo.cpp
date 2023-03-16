@@ -4,31 +4,22 @@
 
 void ModelDemo::Initialize()
 {
-	shader = new Shader(L"12_Model.fxo");
+	shader = new Shader(L"18_Unify.fxo");
 
 	Tank();
-	Kachujin();
 	Tower();
 	Airplane();
 
 	sky = new CubeSky(L"Environment/SnowCube1024.dds");
 	sky->Pass(2);
-
-	planeShader = new Shader(L"10_Mesh.fxo");
-	plane = new MeshPlane(planeShader, 6, 6);
-	plane->GetTransform()->Scale(12, 1, 12);
-	plane->DiffuseMap(L"Floor.png");
 }
 
 void ModelDemo::Destroy()
 {
 	SafeDelete(shader);
 	SafeDelete(sky);
-	SafeDelete(planeShader);
-	SafeDelete(plane);
 
 	SafeDelete(tank);
-	SafeDelete(kachujin);
 	SafeDelete(tower);
 	SafeDelete(airplane);
 }
@@ -40,26 +31,12 @@ void ModelDemo::Update()
 		static Vector3 LightDirection = Vector3(-1, -1, 1);
 		ImGui::SliderFloat3("LightDirection", LightDirection, -1, 1);
 		shader->AsVector("LightDirection")->SetFloatVector(LightDirection);
-		planeShader->AsVector("LightDirection")->SetFloatVector(LightDirection);
-
-		static UINT Pass = 0;
-		ImGui::InputInt("Pass", (int*)&Pass);
-		Pass %= 2;
-		tank->Pass(Pass);
-		kachujin->Pass(Pass);
-		tower->Pass(Pass);
-		airplane->Pass(Pass);
-		
 	}
 
 	sky->Update();
-	plane->Update();
 
 	if (tank != nullptr)
 		tank->Update();
-
-	if (kachujin != nullptr)
-		kachujin->Update();
 
 	if (tower != nullptr)
 		tower->Update();
@@ -71,19 +48,24 @@ void ModelDemo::Update()
 void ModelDemo::Render()
 {
 	sky->Render();
-	plane->Render();
 
 	if (tank != nullptr)
+	{
+		tank->Pass(1);
 		tank->Render();
-
-	if (kachujin != nullptr)
-		kachujin->Render();
+	}
 
 	if (tower != nullptr)
+	{
+		tower->Pass(1);
 		tower->Render();
+	}
 
 	if (airplane != nullptr)
+	{
+		airplane->Pass(1);
 		airplane->Render();
+	}
 }
 
 void ModelDemo::Tank()
@@ -91,15 +73,6 @@ void ModelDemo::Tank()
 	tank = new ModelRenderer(shader);
 	tank->ReadMesh(L"Tank/Tank");
 	tank->ReadMaterial(L"Tank/Tank");
-}
-
-void ModelDemo::Kachujin()
-{
-	kachujin = new ModelRenderer(shader);
-	kachujin->ReadMesh(L"Kachujin/Mesh");
-	kachujin->ReadMaterial(L"Kachujin/Mesh");
-	kachujin->GetTransform()->Scale(0.01f, 0.01f, 0.01f);
-	kachujin->GetTransform()->Position(5, 0, 0);
 }
 
 void ModelDemo::Tower()
