@@ -13,24 +13,24 @@ Material::Material(Shader* shader)
 	SetShader(shader);
 }
 
-Material::~Material()
-{
-	SafeDelete(buffer);
-
-	SafeDelete(diffuseMap);
-	SafeDelete(specularMap);
-	SafeDelete(normalMap);
-}
-
 void Material::Initialize()
 {
 	name = L"";
 
-	diffuseMap = nullptr;
-	specularMap = nullptr;
-	normalMap = nullptr;
+	diffuseMap = NULL;
+	specularMap = NULL;
+	normalMap = NULL;
 
 	buffer = new ConstantBuffer(&colorDesc, sizeof(ColorDesc));
+}
+
+Material::~Material()
+{
+	SafeDelete(diffuseMap);
+	SafeDelete(specularMap);
+	SafeDelete(normalMap);
+
+	SafeDelete(buffer);
 }
 
 void Material::SetShader(Shader* shader)
@@ -92,6 +92,7 @@ void Material::DiffuseMap(string file)
 void Material::DiffuseMap(wstring file)
 {
 	SafeDelete(diffuseMap);
+
 	diffuseMap = new Texture(file);
 }
 
@@ -103,6 +104,7 @@ void Material::SpecularMap(string file)
 void Material::SpecularMap(wstring file)
 {
 	SafeDelete(specularMap);
+
 	specularMap = new Texture(file);
 }
 
@@ -114,6 +116,7 @@ void Material::NormalMap(string file)
 void Material::NormalMap(wstring file)
 {
 	SafeDelete(normalMap);
+
 	normalMap = new Texture(file);
 }
 
@@ -122,18 +125,19 @@ void Material::Render()
 	buffer->Render();
 	sBuffer->SetConstantBuffer(buffer->Buffer());
 
-	if (diffuseMap != nullptr)
+
+	if (diffuseMap != NULL)
 		sDiffuseMap->SetResource(diffuseMap->SRV());
 	else
-		sDiffuseMap->SetResource(nullptr);
+		sDiffuseMap->SetResource(NULL);
 
-	if (specularMap != nullptr)
+	if (specularMap != NULL)
 		sSpecularMap->SetResource(specularMap->SRV());
 	else
-		sSpecularMap->SetResource(nullptr);
+		sSpecularMap->SetResource(NULL);
 
-	if (normalMap != nullptr)
+	if (normalMap != NULL)
 		sNormalMap->SetResource(normalMap->SRV());
 	else
-		sNormalMap->SetResource(nullptr);
+		sNormalMap->SetResource(NULL);
 }

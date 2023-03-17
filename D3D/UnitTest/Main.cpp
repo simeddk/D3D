@@ -2,26 +2,11 @@
 #include "Main.h"
 #include "Systems/Window.h"
 
-#include "VertexLineDemo.h"
-#include "VertexLineColorDemo.h"
-#include "VertexTopologyDemo.h"
-#include "TriangleDemo.h"
-#include "RectDemo.h"
-#include "WorldDemo.h"
-#include "GridDemo.h"
-#include "CubeDemo.h"
-#include "TextureDemo.h"
-#include "SamplerStateDemo.h"
-#include "TerrainDemo.h"
-#include "MeshDemo.h"
-#include "CubeMapDemo.h"
-#include "RawBufferDemo.h"
-#include "TextureBufferDemo.h"
-#include "InstancingDemo.h"
+#include "LightDemo.h"
 
 void Main::Initialize()
 {
-	Push(new InstancingDemo());
+	Push(new LightDemo());
 }
 
 

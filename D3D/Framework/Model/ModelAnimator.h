@@ -10,25 +10,31 @@ public:
 	void Render();
 
 private:
-	void UpdateAnimationFrame();
-	void UpdateBlendingFrame();
+	void UpdateAnimationFrame(UINT instance);
+	void UpdateBlendingFrame(UINT instance);
 
 public:
 	void ReadMesh(wstring file);
 	void ReadMaterial(wstring file);
 	void ReadClip(wstring file);
 
-	void PlayTweenMode(UINT clip, float speed = 1.f, float takeTime = 1.f);
-	void PlayBlendMode(UINT clip1, UINT clip2, UINT clip3);
-	void SetBlendAlpha(float alpha);
+	void PlayTweenMode(UINT instance, UINT clip, float speed = 1.f, float takeTime = 1.f);
+	void PlayBlendMode(UINT instance, UINT clip1, UINT clip2, UINT clip3);
+	void SetBlendAlpha(UINT instance, float alpha);
 
 public:
-	void SetShader(Shader* shader, bool bFirst = false);
 	void Pass(UINT pass);
-	Transform* GetTransform() { return transform; }
+	
+	Transform* AddTransform();
+	Transform* GetTransform(UINT instance) { return transforms[instance]; }
+	void UpdateTransforms();
+	void SetColor(UINT instance, Color& color);
+
+	UINT TransformCount() { return transforms.size(); }
+
 	Model* GetModel() { return model; }
 
-	void GetAttachBones(Matrix* matrix);
+	void GetAttachBones(UINT instance, Matrix* matrix);
 
 private:
 	void CreateTexture();
@@ -94,7 +100,7 @@ private:
 			Curr.Clip = 0;
 			Next.Clip = -1;
 		}
-	} tweenDesc;
+	} tweenDesc[MAX_MODEL_INSTANCE];
 	
 	ConstantBuffer* frameBuffer;
 	ID3DX11EffectConstantBuffer* sFrameBuffer;
@@ -107,7 +113,7 @@ private:
 		Vector2 Padding;
 
 		KeyFrameDesc Clip[3];
-	} blendDesc;
+	} blendDesc[MAX_MODEL_INSTANCE];
 
 	ConstantBuffer* blendBuffer;
 	ID3DX11EffectConstantBuffer* sBlendBuffer;
@@ -116,20 +122,32 @@ private:
 	Shader* shader;
 	Model* model;
 
-	Transform* transform;
+	vector<Transform*> transforms;
+	Matrix worlds[MAX_MESH_INSTANCE];
+	VertexBuffer* instanceWorldBuffer;
+
+	Color colors[MAX_MESH_INSTANCE];
+	VertexBuffer* instanceColorBuffer;
 
 private:
-	float frameRate = 30.f;
+	float frameRate = 60.f;
 	float frameTime = 0.f;
+
+	Matrix** attachBones;
 
 	Shader* computeShader;
 
-	ID3DX11EffectMatrixVariable* sComputeWorld;
-	ID3DX11EffectConstantBuffer* sComputeFrameBuffer;
-	ID3DX11EffectConstantBuffer* sComputeBlendBuffer;
-	ID3DX11EffectShaderResourceVariable* sComputeTransformsSRV;
+	ID3DX11EffectMatrixVariable* sComputeWorld; //ActorTransform -> CS
+	ID3DX11EffectConstantBuffer* sComputeFrameBuffer; //Clip ~ Clip -> CS
+	ID3DX11EffectConstantBuffer* sComputeBlendBuffer; //BlendSpace -> CS
+	ID3DX11EffectShaderResourceVariable* sComputeTransformsSRV; //x(Bone), y(Frame), z(clip) -> CS
 
-	StructuredBuffer* computeBoneBuffer;
-	ID3DX11EffectShaderResourceVariable* sComputeInputBoneBuffer;
-	ID3DX11EffectUnorderedAccessViewVariable* sComputeOutputBoneBuffer;
+	StructuredBuffer* computeWorldBuffer; //Instancing ActorTransform(worlds[]) -> CS Input
+	ID3DX11EffectShaderResourceVariable* sComputeInputWorldBuffer; //compteWorldBuffer -> CS SRV
+
+	StructuredBuffer* computeBoneBuffer; //model->BoneByIndex(i) -> CS Input
+	ID3DX11EffectShaderResourceVariable* sComputeInputBoneBuffer; //CS SRV
+
+	TextureBuffer* computeOutputBuffer; //CS Output
+	ID3DX11EffectUnorderedAccessViewVariable* sComputeOutputBuffer; //CS UAV
 };

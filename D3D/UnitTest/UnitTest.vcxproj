@@ -146,46 +146,16 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="CubeDemo.cpp" />
-    <ClCompile Include="CubeMapDemo.cpp" />
-    <ClCompile Include="GridDemo.cpp" />
-    <ClCompile Include="InstancingDemo.cpp" />
+    <ClCompile Include="LightDemo.cpp" />
     <ClCompile Include="Main.cpp" />
-    <ClCompile Include="MeshDemo.cpp" />
-    <ClCompile Include="RawBufferDemo.cpp" />
-    <ClCompile Include="RectDemo.cpp" />
-    <ClCompile Include="SamplerStateDemo.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="TerrainDemo.cpp" />
-    <ClCompile Include="TextureBufferDemo.cpp" />
-    <ClCompile Include="TextureDemo.cpp" />
-    <ClCompile Include="TriangleDemo.cpp" />
-    <ClCompile Include="VertexLineColorDemo.cpp" />
-    <ClCompile Include="VertexLineDemo.cpp" />
-    <ClCompile Include="VertexTopologyDemo.cpp" />
-    <ClCompile Include="WorldDemo.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="CubeDemo.h" />
-    <ClInclude Include="CubeMapDemo.h" />
-    <ClInclude Include="GridDemo.h" />
-    <ClInclude Include="InstancingDemo.h" />
+    <ClInclude Include="LightDemo.h" />
     <ClInclude Include="Main.h" />
-    <ClInclude Include="MeshDemo.h" />
-    <ClInclude Include="RawBufferDemo.h" />
-    <ClInclude Include="RectDemo.h" />
-    <ClInclude Include="SamplerStateDemo.h" />
     <ClInclude Include="stdafx.h" />
-    <ClInclude Include="TerrainDemo.h" />
-    <ClInclude Include="TextureBufferDemo.h" />
-    <ClInclude Include="TextureDemo.h" />
-    <ClInclude Include="TriangleDemo.h" />
-    <ClInclude Include="VertexLineColorDemo.h" />
-    <ClInclude Include="VertexLineDemo.h" />
-    <ClInclude Include="VertexTopologyDemo.h" />
-    <ClInclude Include="WorldDemo.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

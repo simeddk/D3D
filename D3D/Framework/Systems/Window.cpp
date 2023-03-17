@@ -169,7 +169,8 @@ LRESULT CALLBACK Window::WndProc(HWND handle, UINT message, WPARAM wParam, LPARA
 
 	if (message == WM_CLOSE || message == WM_DESTROY)
 	{
-		PostQuitMessage(0);
+		exit(0);
+		//PostQuitMessage(-1);
 
 		return 0;
 	}

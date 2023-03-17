@@ -50,10 +50,10 @@ public:
 private:
 	struct ColorDesc
 	{
-		Color Ambient;
-		Color Diffuse;
-		Color Specular;
-		Color Emissive;
+		Color Ambient = Color(0, 0, 0, 0);
+		Color Diffuse = Color(1, 1, 1, 1);
+		Color Specular = Color(0, 0, 0, 0);
+		Color Emissive = Color(0, 0, 0, 0);
 	} colorDesc;
 
 private:

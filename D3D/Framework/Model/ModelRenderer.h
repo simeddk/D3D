@@ -20,7 +20,7 @@ public:
 	void UpdateTransforms();
 	void SetColor(UINT instance, Color& color);
 
-	UINT TransmformCount() { return transforms.size(); }
+	UINT TransformCount() { return transforms.size(); }
 
 	void Pass(UINT pass);
 

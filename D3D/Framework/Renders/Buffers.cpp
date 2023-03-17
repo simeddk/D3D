@@ -123,11 +123,11 @@ CsResource::CsResource()
 
 CsResource::~CsResource()
 {
-	SafeDelete(input);
-	SafeDelete(srv);
+	//SafeDelete(input);
+	//SafeDelete(srv);
 
-	SafeDelete(output);
-	SafeDelete(uav);
+	//SafeDelete(output);
+	//SafeDelete(uav);
 }
 
 void CsResource::CreateBuffer()

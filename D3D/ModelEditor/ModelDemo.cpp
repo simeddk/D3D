@@ -31,6 +31,18 @@ void ModelDemo::Update()
 		static Vector3 LightDirection = Vector3(-1, -1, 1);
 		ImGui::SliderFloat3("LightDirection", LightDirection, -1, 1);
 		shader->AsVector("LightDirection")->SetFloatVector(LightDirection);
+
+		static UINT instaceID = 0;
+		ImGui::SliderInt("Instance ID", (int*)&instaceID, 0, airplane->TransformCount() - 1);
+		Transform* transform = airplane->GetTransform(instaceID);
+
+		static Vector3 rotation;
+		ImGui::SliderFloat3("Rotation", rotation, -180, 180);
+		transform->RotationDegree(rotation);
+
+		airplane->SetColor(0, Color(1, 0, 0, 1));
+		airplane->SetColor(airplane->TransformCount() - 1, Color(0, 1, 0, 1));
+		airplane->UpdateTransforms();
 	}
 
 	sky->Update();
@@ -73,6 +85,15 @@ void ModelDemo::Tank()
 	tank = new ModelRenderer(shader);
 	tank->ReadMesh(L"Tank/Tank");
 	tank->ReadMaterial(L"Tank/Tank");
+
+	for (float x = -50; x <= 50; x += 2.5f)
+	{
+		Transform* transform = tank->AddTransform();
+		transform->Position(x, 0, 5);
+		transform->RotationDegree(0, Math::Random(-180, 180), 0);
+		transform->Scale(0.1f, 0.1f, 0.1);
+	}
+	tank->UpdateTransforms();
 }
 
 void ModelDemo::Tower()
@@ -80,8 +101,15 @@ void ModelDemo::Tower()
 	tower = new ModelRenderer(shader);
 	tower->ReadMesh(L"Tower/Tower");
 	tower->ReadMaterial(L"Tower/Tower");
-	tower->GetTransform()->Scale(0.01f, 0.01f, 0.01f);
-	tower->GetTransform()->Position(-5, 0, 0);
+
+	for (float x = -50; x <= 50; x += 2.5f)
+	{
+		Transform* transform = tower->AddTransform();
+		transform->Position(x, 0, 7.5f);
+		transform->RotationDegree(0, Math::Random(-180, 180), 0);
+		transform->Scale(0.003f, 0.003f, 0.003);
+	}
+	tower->UpdateTransforms();
 }
 
 void ModelDemo::Airplane()
@@ -89,6 +117,13 @@ void ModelDemo::Airplane()
 	airplane = new ModelRenderer(shader);
 	airplane->ReadMesh(L"B787/Airplane");
 	airplane->ReadMaterial(L"B787/Airplane");
-	airplane->GetTransform()->Scale(0.001f, 0.001f, 0.001f);
-	airplane->GetTransform()->Position(-10, 0, 0);
+	
+	for (float x = -50; x <= 50; x += 2.5f)
+	{
+		Transform* transform = airplane->AddTransform();
+		transform->Position(x, 0, 2.5f);
+		transform->RotationDegree(0, Math::Random(-180, 180), 0);
+		transform->Scale(0.00025f, 0.00025f, 0.00025f);
+	}
+	airplane->UpdateTransforms();
 }
