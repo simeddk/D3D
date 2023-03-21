@@ -98,3 +98,28 @@ void ComputeLight(out MaterialDesc output, float3 normal, float3 wPosition)
 	}
 	
 }
+
+void NormalMapping(float2 uv, float3 normal, float3 tangent, SamplerState samp)
+{
+	float3 map = NormalMap.Sample(samp, uv).rgb;
+
+	[flatten]
+	if (any(map.rgb) == false)
+		return;
+	
+	float3 coord = map.rgb * 2.f - 1.f;
+
+	float3 N = normalize(normal);
+	float3 T = normalize(tangent - dot(tangent, N) * N);
+	float3 B = cross(N, T);
+	
+	float3x3 TBN = float3x3(T, B, N);
+	coord = mul(coord, TBN);
+
+	Material.Diffuse *= saturate(dot(coord, -GlobalLight.Direction));
+}
+
+void NormalMapping(float2 uv, float3 normal, float3 tangent)
+{
+	NormalMapping(uv, normal, tangent, LinearSampler);
+}

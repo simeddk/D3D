@@ -3,10 +3,13 @@
 #include "Systems/Window.h"
 
 #include "LightDemo.h"
+#include "NormalMapDemo.h"
+#include "RtvDemo.h"
+#include "PostprocessDemo.h"
 
 void Main::Initialize()
 {
-	Push(new LightDemo());
+	Push(new PostprocessDemo());
 }
 
 
